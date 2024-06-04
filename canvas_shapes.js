@@ -39,4 +39,4 @@ for (i = 0; i < 5; i++) {
     context.arc(x, y, 30, 0, 2*Math.PI);
     context.strokeStyle = "orange";
     context.stroke();
-}
+} 
