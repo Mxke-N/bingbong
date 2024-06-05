@@ -29,22 +29,13 @@ class Player {
         for (let key in this.myKeys) {
             this.keyIndex.push(key);
         }
-
-        /*
-        console.log(this.keyIndex);
-
-        for (var i=0; i<this.keyIndex.length; i++) {
-            console.log(this.myKeys[this.keyIndex[i]]);
-        }
-        */
     }
 
     draw() {
+        c.beginPath();
         c.strokeStyle = this.strokeColor;
         c.fillStyle = this.fillColor;
         c.lineWidth = 10;
-
-        c.beginPath();
         c.arc(this.x, this.y, this.r, 0, 2*Math.PI);
         c.stroke();
         c.fill();
@@ -53,12 +44,12 @@ class Player {
     update() {
         console.log(this.myKeys);
         if (this.myKeys[this.keyIndex[0]])
-            this.y -= this.speed;
+            this.y -= this.speed * delta;
         if (this.myKeys[this.keyIndex[1]])
-            this.y += this.speed;
+            this.y += this.speed * delta;
         if (this.myKeys[this.keyIndex[2]])
-            this.x -= this.speed;
+            this.x -= this.speed * delta;
         if (this.myKeys[this.keyIndex[3]])
-            this.x += this.speed;
+            this.x += this.speed * delta;
     }
 }
