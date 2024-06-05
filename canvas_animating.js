@@ -4,6 +4,25 @@ canvas.height = innerHeight;
 
 var c = canvas.getContext('2d');
 
+
+var mouse = {
+    x: undefined,
+    y: undefined
+}
+
+var maxRadius = 40;
+var minRadius = 2;
+
+window.addEventListener('mousemove', function(event) {
+    mouse.x = event.x;
+    mouse.y = event.y;
+})
+
+window.addEventListener('resize', function() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+})
+
 function Circle(x, y, dx, dy, radius) {
     this.x = x;
     this.y = y;
@@ -33,6 +52,15 @@ function Circle(x, y, dx, dy, radius) {
     
         this.x += this.dx;
         this.y += this.dy;
+
+        if (mouse.x-this.x < 50 && mouse.x-this.x > -50 &&
+            mouse.y-this.y < 50 && mouse.y-this.y > -50) {
+            if (this.radius < maxRadius) {
+                this.radius += 1;
+            }
+        } else if (this.radius > minRadius) {
+            this.radius -= 1;
+        }
     }
 }
 
@@ -49,7 +77,22 @@ for (var i=0; i<10; i++) {
     circleArray.push(new Circle(x, y, dx, dy, radius));
 }
 
+function animate() {
+    // Creates animation loop/cycle
+    requestAnimationFrame(animate);
 
+    // Clears canvas
+    c.clearRect(0,0,innerWidth,innerHeight);
+
+    for (var i=0; i<circleArray.length; i++) {
+        circleArray[i].update();
+        circleArray[i].draw();
+    }
+}
+
+animate();
+
+/*
 const fps = 25;
 function animate() {
   // perform some animation task here
@@ -63,6 +106,7 @@ function animate() {
   setTimeout(() => {requestAnimationFrame(animate);}, 1000/fps);
 }
 animate();
+*/
 
 /*
 // initialize the timer variables and start the animation
