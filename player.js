@@ -1,9 +1,37 @@
 class Player {
-    constructor(x, y, r, speed) {
+    constructor(x, y, r, speed, playerNum) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.speed = speed;
+        this.myKeys = {};
+        this.keyIndex = [];
+
+        if (playerNum == 1) {
+            this.myKeys = {
+                'w': false,
+                's': false,
+                'a': false,
+                'd': false
+            }
+        } else {
+            this.myKeys = {
+                'ArrowUp': false,
+                'ArrowDown': false,
+                'ArrowLeft': false,
+                'ArrowRight': false
+            }        
+        }
+
+        for (let key in this.myKeys) {
+            this.keyIndex.push(key);
+        }
+
+        console.log(this.keyIndex);
+
+        for (var i=0; i<this.keyIndex.length; i++) {
+            console.log(this.myKeys[this.keyIndex[i]]);
+        }
     }
 
     draw() {
@@ -18,13 +46,13 @@ class Player {
     }
 
     move() {
-        if (left == true) 
+        if (this.keys['ArrowLeft'] == true) 
             this.x -= this.speed;
-        if (right == true) 
+        if (this.keys['ArrowRight'] == true) 
             this.x += this.speed;
-        if (up == true) 
+        if (this.keys['ArrowUp'] == true) 
             this.y -= this.speed;
-        if (down == true) 
+        if (this.keys['ArrowDown'] == true) 
             this.y += this.speed;
     }
 }

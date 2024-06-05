@@ -38,19 +38,19 @@ class Circle {
 
     update() {
         // check the keys and do the movement.
-        if (this.keys['s']) {
+        if (this.keys['ArrowDown']) {
             // down
             this.y += this.speed;
         }
-        if (this.keys['w']) {
+        if (this.keys['ArrowUp']) {
             // up
             this.y += -this.speed;
         }
-        if (this.keys['d']) {
+        if (this.keys['ArrowRight']) {
             // right
             this.x += this.speed;
         }
-        if (this.keys['a']) {
+        if (this.keys['ArrowLeft']) {
             //left
             this.x += -this.speed;
         }
@@ -80,3 +80,5 @@ addEventListener("keydown", function (e) {
 addEventListener("keyup", function (e) {
     myCircle.keys[e.key] = false;
 });
+
+//if (myCircle.keys.includes(e.key))

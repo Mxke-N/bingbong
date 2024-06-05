@@ -26,7 +26,7 @@ var up = false;
 var right = false;
 var down = false;
 
-var myPlayer = new Player(100,100,30,5);
+var myPlayer = new Player(100,100,30,5,2);
 
 var lastLoop = new Date();
 function mainloop() {
@@ -71,6 +71,7 @@ window.addEventListener("keydown", keyReleased);
 
 
 
+
 /*
 var canvas = document.querySelector('canvas');
 canvas.width = innerWidth;
@@ -98,4 +99,45 @@ function gameLoop() {
 }
 
 setInterval(gameLoop, 1000/30);
+*/
+
+
+
+/*
+var fps, fpsInterval, startTime, now, then, elapsed;
+function startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    now = Date.now();
+    elapsed = now - then;
+    if (elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+        // Put drawing code here
+    }
+}
+*/
+
+
+/*
+var fps = 30;
+var now;
+var then = Date.now();
+var interval = 1000/fps;
+var delta;
+
+function draw() {
+    requestAnimationFrame(draw);
+    now = Date.now();
+    delta = now - then;
+    if (delta > interval) {
+        then = now - (delta % interval)
+        // Drawing code here
+    }
+}
 */
