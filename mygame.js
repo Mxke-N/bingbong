@@ -1,5 +1,5 @@
+/*      WINDOW SETUP    */
 var canvas, c
-
 window.onload = function() {
     canvas = document.querySelector('canvas');
     canvas.width = innerWidth;
@@ -18,14 +18,31 @@ window.onload = function() {
     }, false);
 }
 
-var fps = 20;
+
+/*      MAIN CODE       */
+var myPlayer = new Player(100, 100, 30, 8, 1, "blue", "lightgreen");
+
+
+var FPS = 60;
 var now;
 var then = Date.now();
-var interval = 1000/fps;
+var interval = 1000/FPS;
 var delta;
-var frames = 0;
 
-var endDate = Date.now() + 1000;
+
+function gameLoop() {
+    c.clearRect(0,0,innerWidth,innerHeight);
+    myPlayer.update();
+    myPlayer.draw();
+}
+
+function keyPressed(e) {
+    myPlayer.myKeys[e.key] = true;
+}
+
+function keyReleased(e) {
+    myPlayer.myKeys[e.key] = false;
+}
 
 function animate() {
     requestAnimationFrame(animate);
@@ -33,18 +50,12 @@ function animate() {
     delta = now - then;
     if (delta > interval) {
         then = now - (delta % interval);
-        // Drawing code here
-        frames += 1;
+        gameLoop();
     } 
-    if (now > endDate) {
-        console.log(frames);
-        frames = 0;
-        endDate = now + 1000;
-    }
 }
 
-function main() {
-    animate();
-}
+animate();
 
-main();
+window.addEventListener("keydown", keyPressed);
+window.addEventListener("keyup", keyReleased);
+
