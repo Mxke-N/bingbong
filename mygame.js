@@ -16,8 +16,8 @@ window.onload = function() {
 
 
 /*      MAIN CODE       */
-var myPlayer = new Player(100, 100, 30, .4, 1, "blue", "lightgreen");
-var otherPlayer = new Player(300, 100, 30, .4, 2, "red", "purple");
+var player1 = new Player(150, 250, 25, 1, .25, 45, 250, 1, "blue", "lightgreen");
+var player2 = new Player(600, 250, 25, 3, .25, 45, 250, 2, "orange", "purple");
 
 var FPS = 30;
 var now;
@@ -28,20 +28,20 @@ var delta;
 
 function gameLoop() {
     c.clearRect(0,0,innerWidth,innerHeight);
-    myPlayer.update();
-    otherPlayer.update();
-    myPlayer.draw();
-    otherPlayer.draw();
+    player1.update();
+    player2.update();
+    player1.draw();
+    player2.draw();
 }
 
 function keyPressed(e) {
-    myPlayer.myKeys[e.key] = true;
-    otherPlayer.myKeys[e.key] = true;
+    player1.myKeys[e.key] = true;
+    player2.myKeys[e.key] = true;
 }
 
 function keyReleased(e) {
-    myPlayer.myKeys[e.key] = false;
-    otherPlayer.myKeys[e.key] = false;
+    player1.myKeys[e.key] = false;
+    player2.myKeys[e.key] = false;
 }
 
 function animate() {
