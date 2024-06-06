@@ -16,8 +16,9 @@ window.onload = function() {
 
 
 /*      MAIN CODE       */
-var player1 = new Player(150, 250, 25, 1, .25, 45, 250, 1, "blue", "lightgreen");
-var player2 = new Player(600, 250, 25, 3, .25, 45, 250, 2, "orange", "purple");
+var player1 = new Player(150, 250, 25, 1, .20, 45, 250, 1, "blue", "lightgreen");
+var player2 = new Player(600, 250, 25, 3, .20, 45, 250, 2, "blue", "lightgreen");
+var myBall = new Ball(player1.x, player1.y, 8, 5);
 
 var FPS = 30;
 var now;
@@ -25,13 +26,37 @@ var then = Date.now();
 var interval = 1000/FPS;
 var delta;
 
+function drawBoard() {
+    c.beginPath();
+    c.moveTo(canvas.width/2, 0);
+    c.lineTo(canvas.width/2, canvas.height);
+    c.strokeStyle = "black";
+    c.lineWidth = 1;
+    c.stroke();
+}
+
+function draw() {
+    drawBoard();
+    myBall.draw();
+    player1.draw();
+    player2.draw();
+}
+
+function input() {
+    player1.update();
+    player2.update();
+}
+
+function checkCollisions() {
+    player1.checkCollisions();
+    player2.checkCollisions();
+}
 
 function gameLoop() {
     c.clearRect(0,0,innerWidth,innerHeight);
-    player1.update();
-    player2.update();
-    player1.draw();
-    player2.draw();
+    input();
+    checkCollisions();
+    draw();
 }
 
 function keyPressed(e) {

@@ -62,6 +62,7 @@ class Player {
         c.moveTo(this.x + (this.swordOut*this.r*this.xdir), this.y + (this.swordOut*this.r*this.ydir));
         c.lineTo(this.x + (this.swordOut*this.swordLen*this.xdir) + (this.r * this.xdir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir));
         c.strokeStyle = "red";
+        c.lineWidth = 5;
         c.stroke();
     }
 
@@ -90,6 +91,31 @@ class Player {
         }
         if (this.myKeys[this.keyIndex[3]]) {
             this.x += this.speed * delta;
+        }
+    }
+
+    checkCollisions() {
+        if (this.playerNum == 1) {
+            if (this.x + this.r > canvas.width/2) {
+                this.x = canvas.width/2 - this.r;
+            }
+            if (this.x - this.r < 0) {
+                this.x = this.r;
+            }
+        } else {
+            if (this.x - this.r < canvas.width/2) {
+                this.x = canvas.width/2 + this.r;
+            }
+            if (this.x + this.r > canvas.width) {
+                this.x = canvas.width - this.r;
+            }
+        }
+
+        if (this.y - this.r < 0) {
+            this.y = this.r;
+        }
+        if (this.y + this.r > canvas.height) {
+            this.y = canvas.height - this.r;
         }
     }
 }
