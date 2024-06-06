@@ -18,7 +18,7 @@ window.onload = function() {
 /*      MAIN CODE       */
 var player1 = new Player(150, 250, 25, 1, .20, 45, 250, 1, "blue", "lightgreen");
 var player2 = new Player(600, 250, 25, 3, .20, 45, 250, 2, "blue", "lightgreen");
-var myBall = new Ball(player1.x, player1.y, 8, 5);
+var myBall = new Ball(player1.x, player1.y, 8, .20);
 
 var FPS = 30;
 var now;
@@ -43,6 +43,7 @@ function draw() {
 }
 
 function input() {
+    myBall.update();
     player1.update();
     player2.update();
 }
@@ -50,6 +51,8 @@ function input() {
 function checkCollisions() {
     player1.checkCollisions();
     player2.checkCollisions();
+    myBall.checkPlayerCollisions();
+    myBall.checkWallCollisions();
 }
 
 function gameLoop() {

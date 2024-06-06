@@ -15,6 +15,7 @@ class Player {
         this.keyIndex = [];
         this.swordOut = 0;
         this.swordTime = 0;
+        this.swordY;
 
         if (this.dir == 1) {
             this.xdir = 0;
@@ -69,6 +70,7 @@ class Player {
     update() {
         if (this.myKeys[this.keyIndex[4]]) {
             this.swordOut = true;
+            this.swordY = Math.min(this.y + (this.swordOut*this.r*this.ydir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir))
             this.swordTime = Date.now() + this.swordDelay;
         }
 
