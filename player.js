@@ -1,5 +1,6 @@
 class Player {
-    constructor(x, y, r, dir, speed, swordLen, swordDelay, playerNum, strokeColor, fillColor) {
+    constructor(name, x, y, r, dir, speed, swordLen, swordDelay, playerNum, strokeColor, fillColor) {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.r = r;
@@ -13,9 +14,11 @@ class Player {
 
         this.myKeys = {};
         this.keyIndex = [];
-        this.swordOut = 0;
         this.swordTime = 0;
+        this.swordOut = false;
+        this.swordKeyPressed = false;
         this.swordY;
+        this.isServing = false;
 
         if (this.dir == 1) {
             this.xdir = 0;
@@ -54,14 +57,14 @@ class Player {
         c.strokeStyle = this.strokeColor;
         c.fillStyle = this.fillColor;
         c.lineWidth = 10;
-        c.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+        c.arc(adj_x+this.x, adj_y+this.y, this.r, 0, 2*Math.PI);
         c.stroke();
         c.fill();
 
         // Sword
         c.beginPath();
-        c.moveTo(this.x + (this.swordOut*this.r*this.xdir), this.y + (this.swordOut*this.r*this.ydir));
-        c.lineTo(this.x + (this.swordOut*this.swordLen*this.xdir) + (this.r * this.xdir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir));
+        c.moveTo(adj_x+this.x + (this.swordOut*this.r*this.xdir), adj_y+this.y + (this.swordOut*this.r*this.ydir));
+        c.lineTo(adj_x+this.x + (this.swordOut*this.swordLen*this.xdir) + (this.r * this.xdir), adj_y+this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir));
         c.strokeStyle = "red";
         c.lineWidth = 5;
         c.stroke();
@@ -69,9 +72,14 @@ class Player {
 
     update() {
         if (this.myKeys[this.keyIndex[4]]) {
-            this.swordOut = true;
-            this.swordY = Math.min(this.y + (this.swordOut*this.r*this.ydir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir))
-            this.swordTime = Date.now() + this.swordDelay;
+            if (this.swordKeyPressed == false && this.swordOut == false) {
+                this.swordKeyPressed = true;
+                this.swordOut = true;
+                this.swordY = Math.min(this.y + (this.swordOut*this.r*this.ydir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir))
+                this.swordTime = Date.now() + this.swordDelay;
+            }
+        } else {
+            this.swordKeyPressed = false;
         }
 
         if (this.swordTime > Date.now()) {
@@ -97,27 +105,16 @@ class Player {
     }
 
     checkCollisions() {
+        var myWidth = (C_WIDTH/2); 
+
         if (this.playerNum == 1) {
-            if (this.x + this.r > canvas.width/2) {
-                this.x = canvas.width/2 - this.r;
-            }
-            if (this.x - this.r < 0) {
-                this.x = this.r;
+            if (this.x + this.r > myWidth) {
+                this.x = myWidth - this.r;
             }
         } else {
-            if (this.x - this.r < canvas.width/2) {
-                this.x = canvas.width/2 + this.r;
+            if (this.x - this.r < myWidth) {
+                this.x = myWidth + this.r;
             }
-            if (this.x + this.r > canvas.width) {
-                this.x = canvas.width - this.r;
-            }
-        }
-
-        if (this.y - this.r < 0) {
-            this.y = this.r;
-        }
-        if (this.y + this.r > canvas.height) {
-            this.y = canvas.height - this.r;
         }
     }
 }
