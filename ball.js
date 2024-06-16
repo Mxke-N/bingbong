@@ -9,6 +9,9 @@ class Ball {
         this.dy = 0;
         this.ballTouched = false;
         this.serving = true;
+        this.goal = false;
+        this.nextServeTime = 0;
+        this.goalTimeSet = false;
     }
 
     draw() {
@@ -22,6 +25,9 @@ class Ball {
     }
 
     update() {
+        if (this.goal == true) {
+            return;
+        }
         if (this.serving == true) {
             this.x = playerServing.x + (playerServing.r*playerServing.xdir);
             this.y = playerServing.y + ((playerServing.r + 10)*playerServing.ydir);
@@ -32,13 +38,16 @@ class Ball {
     }
 
     checkWallCollisions() {
+        if (this.goal == true) {
+            return;
+        }
         if (this.y - this.r < 35) {
             this.dy = Math.abs(this.dy);
         } else if (this.y + this.r > C_HEIGHT-35) {
             this.dy = -Math.abs(this.dy);
-        } else if (this.x - this.r < 0) {
+        } else if (this.x + this.r < 0) {
             this.dx = Math.abs(this.dx);
-        } else if (this.x + this.r > C_WIDTH) {
+        } else if (this.x - this.r > C_WIDTH) {
             this.dx = -Math.abs(this.dx);
         }
     }
@@ -48,22 +57,27 @@ class Ball {
         var new_speed = this.speed;
 
         if (sword_dt <= 250 && sword_dt > 200) {
+            myPlayer.swordColor = "orange";
             new_speed = .15;
             console.log(myPlayer.name + ": TOO LATE");
         }
         if (sword_dt <= 200 && sword_dt > 150) {
+            myPlayer.swordColor = "yellow";
             new_speed = .17;
             console.log(myPlayer.name + ": LATE");
         }
         if (sword_dt <= 150 && sword_dt > 100) {
+            myPlayer.swordColor = "lime";
             new_speed = .28;
             console.log(myPlayer.name + ": PERFECT");
         }
         if (sword_dt <= 100 && sword_dt > 50) {
+            myPlayer.swordColor = "orange";
             new_speed = .25;
             console.log(myPlayer.name + ": EARLY");
         }
         if (sword_dt < 50) {
+            myPlayer.swordColor = "red";
             new_speed = .2;
             console.log(myPlayer.name + ": TOO EARLY");
         }
@@ -72,6 +86,9 @@ class Ball {
     }
 
     checkSwordCollisions() {
+        if (this.goal == true) {
+            return;
+        }
         var timeNow = Date.now();
         if (this.x < C_WIDTH/2) {
             if (player1.swordOut == false) 
@@ -121,6 +138,20 @@ class Ball {
                 return;
             }
             this.ballTouched = false;
+        }
+    }
+
+    checkGoal() {
+        if (this.serving == true) {
+            return;
+        }
+
+        if (this.x+this.r < 0) {
+            this.goal = true;
+            playerScored = 2;
+        } else if (this.x-this.r > C_WIDTH) {
+            this.goal = true;
+            playerScored = 1;
         }
     }
 }

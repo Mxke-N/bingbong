@@ -19,6 +19,7 @@ class Player {
         this.swordKeyPressed = false;
         this.swordY;
         this.isServing = false;
+        this.swordColor = "red";
 
         if (this.dir == 1) {
             this.xdir = 0;
@@ -38,10 +39,10 @@ class Player {
             }
         } else {
             this.myKeys = {
-                'ArrowUp': false,
-                'ArrowDown': false,
-                'ArrowLeft': false,
-                'ArrowRight': false,
+                'arrowup': false,
+                'arrowdown': false,
+                'arrowleft': false,
+                'arrowright': false,
                 'p': false
             }        
         }
@@ -65,7 +66,7 @@ class Player {
         c.beginPath();
         c.moveTo(adj_x+this.x + (this.swordOut*this.r*this.xdir), adj_y+this.y + (this.swordOut*this.r*this.ydir));
         c.lineTo(adj_x+this.x + (this.swordOut*this.swordLen*this.xdir) + (this.r * this.xdir), adj_y+this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir));
-        c.strokeStyle = "red";
+        c.strokeStyle = this.swordColor;
         c.lineWidth = 5;
         c.stroke();
     }
@@ -87,6 +88,7 @@ class Player {
         }
 
         this.swordOut = false;
+        this.swordColor = "red"
 
         if (this.myKeys[this.keyIndex[0]]) {
             this.y -= this.speed * delta;
