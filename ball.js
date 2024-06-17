@@ -12,6 +12,7 @@ class Ball {
         this.goal = false;
         this.nextServeTime = 0;
         this.goalTimeSet = false;
+        this.outside = true;
     }
 
     draw() {
@@ -45,10 +46,18 @@ class Ball {
             this.dy = Math.abs(this.dy);
         } else if (this.y + this.r > C_HEIGHT-35) {
             this.dy = -Math.abs(this.dy);
-        } else if (this.x + this.r < 0) {
-            this.dx = Math.abs(this.dx);
-        } else if (this.x - this.r > C_WIDTH) {
-            this.dx = -Math.abs(this.dx);
+        }
+        
+        if (this.serving == false) {
+            if ((this.x-this.r > 0) && (this.x + this.r < C_WIDTH)) {
+                this.outside = false;
+            }
+            return;
+        }
+        
+        this.outside = false;
+        if ((this.x+this.r < 0) || (this.x - this.r > C_WIDTH)) {
+            this.outside = true;
         }
     }
 
@@ -143,6 +152,9 @@ class Ball {
 
     checkGoal() {
         if (this.serving == true) {
+            return;
+        }
+        if (this.outside == true) {
             return;
         }
 
