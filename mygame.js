@@ -55,7 +55,7 @@ function drawBoard() {
     c.moveTo(adj_x + C_WIDTH - (C_WIDTH/4), adj_y+35);
     c.lineTo(adj_x + C_WIDTH - (C_WIDTH/4), adj_y + C_HEIGHT-35);
     c.stroke();
-
+    
     c.strokeStyle = "#39ff14";
     c.lineWidth = 30;
     c.beginPath();

@@ -66,7 +66,7 @@ class Ball {
         var new_speed = this.speed;
 
         if (sword_dt <= 250 && sword_dt > 200) {
-            myPlayer.swordColor = "orange";
+            myPlayer.swordColor = "darkred";
             new_speed = .15;
             console.log(myPlayer.name + ": TOO LATE");
         }
