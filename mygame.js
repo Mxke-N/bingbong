@@ -38,9 +38,9 @@ var p2_score = 0;
 var playerScored;
 var playerServing;
 
-var FPS = 100;
+var FPS = 200;
 var now;
-var then = Date.now();
+var then = performance.now();
 var interval = 1000/FPS;
 var delta;
 
@@ -128,10 +128,10 @@ function ifGoal() {
                 p2_score += 1;
             }
             myBall.goalTimeSet = true;
-            myBall.nextServeTime = Date.now() + 500;
+            myBall.nextServeTime = performance.now() + 500;
             return;
         }
-        if (Date.now() > myBall.nextServeTime) {
+        if (performance.now() > myBall.nextServeTime) {
             myBall.goalTimeSet = false;
             myBall.goal = false;
             nextServe();
@@ -160,7 +160,7 @@ function keyReleased(e) {
 
 function animate() {
     requestAnimationFrame(animate);
-    now = Date.now();
+    now = performance.now();
     delta = now - then;
     if (delta > interval) {
         then = now - (delta % interval);

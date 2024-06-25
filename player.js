@@ -77,13 +77,13 @@ class Player {
                 this.swordKeyPressed = true;
                 this.swordOut = true;
                 this.swordY = Math.min(this.y + (this.swordOut*this.r*this.ydir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir))
-                this.swordTime = Date.now() + this.swordDelay;
+                this.swordTime = performance.now() + this.swordDelay;
             }
         } else {
             this.swordKeyPressed = false;
         }
 
-        if (this.swordTime > Date.now()) {
+        if (this.swordTime > performance.now()) {
             return;
         }
 

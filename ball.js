@@ -68,27 +68,27 @@ class Ball {
         if (sword_dt <= 250 && sword_dt > 200) {
             myPlayer.swordColor = "darkred";
             new_speed = .15;
-            console.log(myPlayer.name + ": TOO LATE");
+            //console.log(myPlayer.name + ": TOO LATE");
         }
         if (sword_dt <= 200 && sword_dt > 150) {
-            myPlayer.swordColor = "yellow";
+            myPlayer.swordColor = "red";
             new_speed = .17;
-            console.log(myPlayer.name + ": LATE");
+            //console.log(myPlayer.name + ": LATE");
         }
         if (sword_dt <= 150 && sword_dt > 100) {
             myPlayer.swordColor = "lime";
             new_speed = .28;
-            console.log(myPlayer.name + ": PERFECT");
+            //console.log(myPlayer.name + ": PERFECT");
         }
         if (sword_dt <= 100 && sword_dt > 50) {
-            myPlayer.swordColor = "orange";
+            myPlayer.swordColor = "yellow";
             new_speed = .25;
-            console.log(myPlayer.name + ": EARLY");
+            //console.log(myPlayer.name + ": EARLY");
         }
         if (sword_dt < 50) {
-            myPlayer.swordColor = "red";
+            myPlayer.swordColor = "orange";
             new_speed = .2;
-            console.log(myPlayer.name + ": TOO EARLY");
+            //console.log(myPlayer.name + ": TOO EARLY");
         }
 
         return new_speed;
@@ -98,7 +98,7 @@ class Ball {
         if (this.goal == true) {
             return;
         }
-        var timeNow = Date.now();
+        var timeNow = performance.now();
         if (this.x < C_WIDTH/2) {
             if (player1.swordOut == false) 
                 return;
