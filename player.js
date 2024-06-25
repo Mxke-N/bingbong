@@ -78,6 +78,8 @@ class Player {
                 this.swordOut = true;
                 this.swordY = Math.min(this.y + (this.swordOut*this.r*this.ydir), this.y + (this.swordOut*this.swordLen*this.ydir) + (this.r * this.ydir))
                 this.swordTime = performance.now() + this.swordDelay;
+
+                new Audio('game_sounds/swordout.mp3').play();
             }
         } else {
             this.swordKeyPressed = false;

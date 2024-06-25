@@ -42,6 +42,8 @@ class Ball {
         if (this.goal == true) {
             return;
         }
+
+        var old_dy = this.dy;
         if (this.y - this.r < 35) {
             this.dy = Math.abs(this.dy);
         } else if (this.y + this.r > C_HEIGHT-35) {
@@ -51,6 +53,10 @@ class Ball {
         if (this.serving == false) {
             if ((this.x-this.r > 0) && (this.x + this.r < C_WIDTH)) {
                 this.outside = false;
+
+                if (old_dy != this.dy) {
+                    new Audio('game_sounds/goodball.wav').play();
+                }
             }
             return;
         }
@@ -68,28 +74,25 @@ class Ball {
         if (sword_dt <= 250 && sword_dt > 200) {
             myPlayer.swordColor = "darkred";
             new_speed = .15;
-            //console.log(myPlayer.name + ": TOO LATE");
         }
         if (sword_dt <= 200 && sword_dt > 150) {
             myPlayer.swordColor = "red";
             new_speed = .17;
-            //console.log(myPlayer.name + ": LATE");
         }
         if (sword_dt <= 150 && sword_dt > 100) {
             myPlayer.swordColor = "lime";
             new_speed = .28;
-            //console.log(myPlayer.name + ": PERFECT");
         }
         if (sword_dt <= 100 && sword_dt > 50) {
             myPlayer.swordColor = "yellow";
             new_speed = .25;
-            //console.log(myPlayer.name + ": EARLY");
         }
         if (sword_dt < 50) {
             myPlayer.swordColor = "orange";
             new_speed = .2;
-            //console.log(myPlayer.name + ": TOO EARLY");
         }
+
+        new Audio('game_sounds/goodball.wav').play();
 
         return new_speed;
     }
