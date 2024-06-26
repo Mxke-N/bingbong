@@ -3,7 +3,8 @@ var canvas, c
 var C_WIDTH = 750;
 var C_HEIGHT = 500;
 var adj_x, adj_y;
-window.onload = function() {
+
+function setupWindow() {
     canvas = document.querySelector('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;

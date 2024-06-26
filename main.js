@@ -1,3 +1,5 @@
+window.onload = setupWindow();
+
 /* VARIABLES */
 var player1 = new Player("P1", 150, 250, 20, 1, .28, 45, 250, 1, "blue", "lightgreen");
 var player2 = new Player("P2", 600, 250, 20, 3, .28, 45, 250, 2, "blue", "lightgreen");
@@ -90,23 +92,23 @@ function checkCollisions() {
 }
 
 function onGoal() {
-    if (myBall.goal == true) {
-        if (myBall.goalTimeSet == false) {
-            if (playerScored == 1) {
-                p1_score += 1;
-            } else {
-                p2_score += 1;
-            }
-            myBall.goalTimeSet = true;
-            myBall.nextServeTime = performance.now() + 500;
-            return;
+    if (myBall.goal == false) 
+        return;
+    if (myBall.goalTimeSet == false) {
+        if (playerScored == 1) {
+            p1_score += 1;
+        } else {
+            p2_score += 1;
         }
-        if (performance.now() > myBall.nextServeTime) {
-            myBall.goalTimeSet = false;
-            myBall.goal = false;
-            nextServe();
-        }
-    } 
+        myBall.goalTimeSet = true;
+        myBall.nextServeTime = performance.now() + 500;
+        return;
+    }
+    if (performance.now() > myBall.nextServeTime) {
+        myBall.goalTimeSet = false;
+        myBall.goal = false;
+        nextServe();
+    }
 }
 
 function gameLoop() {
@@ -150,12 +152,20 @@ function nextServe() {
     player2.swordColor = "red";
 }
 
+function drawFPS() {
+    var myFPS = Math.round(1000 / delta);
+    c.fillStyle = "black";
+    c.font = "25px Verdana";
+    c.textAlign = "left";
+    c.fillText(myFPS,0,25);
+}
+
 function animationLoop(now) {
     requestAnimationFrame(animationLoop);
-
     delta = now - then;
     then = now;
     gameLoop();
+    drawFPS();
 }
 
 
