@@ -1,36 +1,7 @@
-/*      WINDOW SETUP    */
-var canvas, c
-var C_WIDTH = 750;
-var C_HEIGHT = 500;
-var adj_x, adj_y;
-window.onload = function() {
-    canvas = document.querySelector('canvas');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    adj_x = (canvas.width - C_WIDTH) / 2;
-    adj_y = (canvas.height - C_HEIGHT) / 2;
-
-    c = canvas.getContext('2d');
-
-    window.addEventListener('resize', function() {
-        canvas.width = innerWidth;
-        canvas.height = innerHeight;
-        adj_x = (canvas.width - C_WIDTH) / 2;
-        adj_y = (canvas.height - C_HEIGHT) / 2;
-    })
-
-    window.addEventListener("keydown", function(e) {
-        if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-            e.preventDefault();
-        }
-    }, false);
-}
-
-
-/*      MAIN CODE       */
-var player1 = new Player("P1", 150, 250, 20, 1, .20, 45, 250, 1, "blue", "lightgreen");
-var player2 = new Player("P2", 600, 250, 20, 3, .20, 45, 250, 2, "blue", "lightgreen");
-var myBall = new Ball(0, 0, 8, .20);
+/* VARIABLES */
+var player1 = new Player("P1", 150, 250, 20, 1, .28, 45, 250, 1, "blue", "lightgreen");
+var player2 = new Player("P2", 600, 250, 20, 3, .28, 45, 250, 2, "blue", "lightgreen");
+var myBall = new Ball(0, 0, 8, .28);
 
 var p1_score = 0;
 var p2_score = 0;
@@ -38,12 +9,11 @@ var p2_score = 0;
 var playerScored;
 var playerServing;
 
-var FPS = 200;
-var now;
 var then = performance.now();
-var interval = 1000/FPS;
 var delta;
 
+
+/* FUNCTIONS */
 function drawBoard() {
     c.lineWidth = 1;
     c.strokeStyle = "gray";
@@ -114,12 +84,12 @@ function checkCollisions() {
     player2.checkCollisions();
     myBall.update();
     myBall.checkGoal();
-    ifGoal();
+    onGoal();
     myBall.checkSwordCollisions();
     myBall.checkWallCollisions();
 }
 
-function ifGoal() {
+function onGoal() {
     if (myBall.goal == true) {
         if (myBall.goalTimeSet == false) {
             if (playerScored == 1) {
@@ -158,16 +128,6 @@ function keyReleased(e) {
     player2.myKeys[myKey] = false;
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    now = performance.now();
-    delta = now - then;
-    if (delta > interval) {
-        then = now - (delta % interval);
-        gameLoop();
-    } 
-}
-
 function changeServer(nextServer) {
     playerServing = nextServer;
     nextServer.isServing = true;
@@ -190,9 +150,21 @@ function nextServe() {
     player2.swordColor = "red";
 }
 
-changeServer(player1);
-animate();
+function animationLoop(now) {
+    requestAnimationFrame(animationLoop);
 
+    delta = now - then;
+    then = now;
+    gameLoop();
+}
+
+
+/* MAIN */
+changeServer(player1);
+requestAnimationFrame(animationLoop);
+
+
+/* EVENTS */
 window.addEventListener("keydown", keyPressed);
 window.addEventListener("keyup", keyReleased);
 
