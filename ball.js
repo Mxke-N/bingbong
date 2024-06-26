@@ -73,23 +73,23 @@ class Ball {
 
         if (sword_dt <= 250 && sword_dt > 200) {
             myPlayer.swordColor = "darkred";
-            new_speed = .15;
+            new_speed = .23;
         }
         if (sword_dt <= 200 && sword_dt > 150) {
             myPlayer.swordColor = "red";
-            new_speed = .17;
+            new_speed = .25;
         }
         if (sword_dt <= 150 && sword_dt > 100) {
             myPlayer.swordColor = "lime";
-            new_speed = .28;
+            new_speed = .36;
         }
         if (sword_dt <= 100 && sword_dt > 50) {
             myPlayer.swordColor = "yellow";
-            new_speed = .25;
+            new_speed = .33;
         }
         if (sword_dt < 50) {
             myPlayer.swordColor = "orange";
-            new_speed = .2;
+            new_speed = .28;
         }
 
         new Audio('game_sounds/goodball.wav').play();
